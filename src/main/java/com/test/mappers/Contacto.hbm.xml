@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- NODO RAIZ DEL DOCUMENTO -->
+<hibernate-mapping>
+  <!--
+    INICIO TABLA CONTACTOS
+    CLASS : Siguiente etiqueta mapea la clase como una tabla
+    NAME : Ruta de la clase
+    TABLE : Nombre que tomará la clase en la base de datos
+  -->
+  <class name="com.test.pojo.Contacto" table="CONTACTOS">
+    <!-- A partir de aca de agregan las columnas, dentro de la tabla CONTACTOS -->
+    <!--
+      ID : Forma de mapear un ID como columna
+      NAME : Nombre del atributo de la clase referente al ID
+      COLUMN : Nombre que tomará como columna
+    -->
+    <id name="id" column="ID">
+      <!--
+        GENERATOR : Determina la estrategia de generación del ID
+        CLASS : Estrategia de generación del ID
+      -->
+      <generator class="identify"/>
+    </id>
+    <!--
+      PROPERTY : Forma de mapear un atributo común como columna
+      NAME : Nombre del atributo de la clase
+      TYPE : Determina el tipo de dato que tomará la columna de la tabla
+        (OPCIONAL: Al no haberse colocado buscará por reflexión en la clase y elegirá el tipo mas adecuado)
+      COLUMN : Nombre que tomará como columna
+        (OPCIONAL: Al no haberse colocado tomará el nombre del atributo)
+    -->
+    <property name="nombre" type="string" column="NOMBRE"></property>
+    <property name="email" type="string" column="EMAIL"></property>
+    <property name="telefono" type="string" column="TELEFONO"></property>
+  </class>
+  <!-- FIN TABLA CONTACTOS -->
+</hibernate-mapping>
