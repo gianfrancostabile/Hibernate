@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+  "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+  "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<!-- ROOT NODE -->
+<hibernate-mapping>
+  <!--
+    BEGIN PERSON TABLE
+    CLASS : Mapped the class as table
+    NAME : Class path
+    TABLE : Name that this class will have in the database
+  -->
+  <class name="com.hibernate.dto.PersonDTO" table="PERSONS">
+    <!-- After that, you have to put all the columns will have the table -->
+    <!--
+      ID : Tag that identify ID column
+      NAME : Attribute name
+      COLUMN : Column name
+    -->
+    <id name="ID" column="ID">
+      <!--
+        GENERATOR : Determinate the ID generation strategy
+        CLASS : The generation strategy
+      -->
+      <generator class="increment"/>
+    </id>
+    <!--
+      PROPERTY : Tag to map attributes
+      NAME : Attribute name
+      TYPE : Data type that the column will have on the table
+        (OPTIONAL: If you haven't been specified, the data type will be taken by reflection)
+      COLUMN : Column name
+        (OPTIONAL: If you haven't been specified, the name will be the attribute name)
+    -->
+    <property name="name" type="string" column="NAME" not-null="true" />
+    <property name="age" type="integer" column="AGE" not-null="true" />
+    <property name="birthday" type="date" column="BIRTHDAY" not-null="true" />
+    <property name="email" type="string" column="EMAIL" />
+    <property name="phone" type="string" column="PHONE" />
+    <many-to-one name="ID" column="COUNTRY_ID" class="com.hibernate.dto.CountryDTO" not-null="true" />
+  </class>
+  <!-- END PERSON TABLE -->
+
+  <class name="com.hibernate.dto.CountryDTO" table="COUNTRIES">
+    <id name="id" column="ID">
+      <generator class="identify"/>
+    </id>
+    <property name="name" type="string" column="NAME" />
+  </class>
+</hibernate-mapping>

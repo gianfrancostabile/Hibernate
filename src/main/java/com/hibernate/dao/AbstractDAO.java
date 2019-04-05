@@ -1,9 +1,9 @@
-package com.test.dao;
+package com.hibernate.dao;
 
-import com.test.utilities.HibernateUtil;
+import com.hibernate.util.HibernateUtil;
 import org.hibernate.*;
 
-public abstract class DAO {
+public abstract class AbstractDAO {
    protected Session session = null;
    protected Transaction transaction = null;
 

@@ -11,9 +11,9 @@
   -->
   <session-factory>
     <!-- parametros para la conexion a la base de datos -->
-    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="connection.url">jdbc:mysql://localhost/pruebahibernate</property>
-    <property name="connection.name">root</property>
+    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="connection.url">jdbc:mysql://localhost/hibernatetest</property>
+    <property name="connection.username">root</property>
     <property name="connection.password">a</property>
 
     <!-- Configuracion del pool interno -->
@@ -27,6 +27,7 @@
     <property name="hbm2ddl.auto">create</property>
 
     <!-- Archivos de mapeo -->
-    <mapping resource="mappers/Contacto.hbm.xml"/>
+    <mapping resource="mappers/country.hbm.xml" />
+    <mapping resource="mappers/person.hbm.xml" />
   </session-factory>
 </hibernate-configuration>
