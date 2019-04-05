@@ -10,8 +10,6 @@ public abstract class AbstractDAO {
    protected void beginSession() throws HibernateException {
       if (session == null) {
          session = HibernateUtil.getSessionFactory().openSession();
-      } else {
-         throw new SessionException("Ya hay una sesión iniciada");
       }
    }
 
@@ -20,7 +18,7 @@ public abstract class AbstractDAO {
          session.close();
          session = null;
       } else {
-         throw new SessionException("No hay una sesión iniciada");
+         throw new SessionException("Session was never open");
       }
    }
 
@@ -29,10 +27,10 @@ public abstract class AbstractDAO {
          if (transaction == null) {
             transaction = session.beginTransaction();
          } else {
-            throw new TransactionException("Ya hay una transacción iniciada");
+            throw new TransactionException("A transaction already exists");
          }
       } else {
-         throw new SessionException("No hay una sesión iniciada");
+         throw new SessionException("Session was never open");
       }
    }
 
@@ -41,7 +39,7 @@ public abstract class AbstractDAO {
          transaction.commit();
          transaction = null;
       } else {
-         throw new TransactionException("No hay una transacción iniciada");
+         throw new TransactionException("A transaction was never begun");
       }
    }
 
@@ -50,7 +48,7 @@ public abstract class AbstractDAO {
          transaction.rollback();
          transaction = null;
       } else {
-         throw new TransactionException("No hay una transacción iniciada");
+         throw new TransactionException("A transaction was never begun");
       }
    }
 }

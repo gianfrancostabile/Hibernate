@@ -10,11 +10,6 @@ public class CountryDTO implements Serializable {
 
    }
 
-   public CountryDTO(long id, String name) {
-      this.setID(id)
-         .setName(name);
-   }
-
    public long getID() {
       return ID;
    }

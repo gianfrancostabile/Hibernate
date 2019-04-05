@@ -136,9 +136,9 @@ public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, Long> {
    public boolean deleteByIdTransactional(Long value) {
       boolean deleted;
       try {
+         CountryDTO countryDTO = retrieve(value);
          beginSession();
          beginTransaction();
-         CountryDTO countryDTO = retrieve(value);
          session.delete(countryDTO);
          commitTransaction();
          deleted = true;

@@ -16,16 +16,6 @@ public class PersonDTO implements Serializable {
 
    }
 
-   public PersonDTO(long id, String name, int age, Date birthday, String email, String phone, CountryDTO country) {
-      this.setID(id)
-         .setName(name)
-         .setAge(age)
-         .setBirthday(birthday)
-         .setEmail(email)
-         .setPhone(phone)
-         .setCountry(country);
-   }
-
    public long getID() {
       return ID;
    }

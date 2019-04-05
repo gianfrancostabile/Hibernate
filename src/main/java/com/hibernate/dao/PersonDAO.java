@@ -136,9 +136,9 @@ public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
    public boolean deleteByIdTransactional(Long value) {
       boolean deleted;
       try {
+         PersonDTO personDTO = retrieve(value);
          beginSession();
          beginTransaction();
-         PersonDTO personDTO = retrieve(value);
          session.delete(personDTO);
          commitTransaction();
          deleted = true;

@@ -23,41 +23,63 @@ public class App {
    public static void main(String[] args) {
       BasicConfigurator.configure();
 
+      CountryDAO daoCountry = new CountryDAO();
+      PersonDAO daoPerson = new PersonDAO();
+
       PersonConverter personConverter = new PersonConverter();
       CountryConverter countryConverter = new CountryConverter();
 
-      Country country = new Country();
-      country.setName("Argentina");
+      Country country = new Country();;
+      CountryDTO countryDTO;
+      Person person = new Person();
+      PersonDTO personDTO;
 
-      CountryDTO countryDTO = countryConverter.toDTO(country);
+      country.setName("Argentine");
+      countryDTO = countryConverter.toDTO(country);
 
-      CountryDAO daoCountry = new CountryDAO();
       Long idCountryInserted = daoCountry.insertTransactional(countryDTO);
       logger.info("Country inserted with ID - ".concat(idCountryInserted.toString()));
-      CountryDTO countryDTORetrieved = daoCountry.retrieve(idCountryInserted);
+      countryDTO = daoCountry.retrieve(idCountryInserted);
 
-      Country countryRetrieved = countryConverter.toPOJO(countryDTORetrieved);
-      logger.info(countryRetrieved.toString());
+      country = countryConverter.toPOJO(countryDTO);
+      logger.info("Country Argentina retrieve: ".concat(country.toString()));
 
-
-      Person person = new Person();
       person.setName("Gian Franco")
          .setAge(21)
-         .setBirthday(new Date(890352000000L))
+         .setBirthday(new Date(890362800))
          .setEmail("gianfranco.stabile98@gmail.com")
          .setPhone("+542231111111")
-         .setCountry(countryRetrieved);
+         .setCountry(country);
 
-      PersonDTO personDTO = personConverter.toDTO(person);
-      personDTO.getCountry().setID(countryDTORetrieved.getID());
+      personDTO = personConverter.toDTO(person);
+      personDTO.getCountry().setID(countryDTO.getID());
 
-      PersonDAO daoPerson = new PersonDAO();
       Long idInserted = daoPerson.insertTransactional(personDTO);
       logger.info("Person inserted with ID - ".concat(idInserted.toString()));
-      PersonDTO personDTORetrieved = daoPerson.retrieve(idInserted);
+      personDTO = daoPerson.retrieve(idInserted);
 
-      Person personRetrieved = personConverter.toPOJO(personDTORetrieved);
-      logger.info(personRetrieved.toString());
+      Person personRetrieved = personConverter.toPOJO(personDTO);
+      logger.info("Person I retrieved: ".concat(personRetrieved.toString()));
 
+      countryDTO.setName("Brazil");
+      daoCountry.updateTransactional(countryDTO);
+      countryDTO = daoCountry.retrieve(countryDTO.getID());
+      country = countryConverter.toPOJO(countryDTO);
+      logger.info("Country Brazil retrieved: ".concat(country.toString()));
+
+      personDTO.setName("Lionel Messi")
+         .setAge(31)
+         .setBirthday(new Date(551502000))
+         .setEmail("lionelmessi@gmail.com")
+         .setPhone("999999999");
+      daoPerson.updateTransactional(personDTO);
+      personDTO = daoPerson.retrieve(personDTO.getID());
+      person = personConverter.toPOJO(personDTO);
+      logger.info("Person Messi retrieved: ".concat(person.toString()));
+
+      daoPerson.deleteByIdTransactional(personDTO.getID());
+      logger.info("Messi was deleted.");
+      daoCountry.deleteByIdTransactional(countryDTO.getID());
+      logger.info("Brazil was deleted.");
    }
 }
