@@ -41,11 +41,4 @@
     <many-to-one name="ID" column="COUNTRY_ID" class="com.hibernate.dto.CountryDTO" not-null="true" />
   </class>
   <!-- END PERSON TABLE -->
-
-  <class name="com.hibernate.dto.CountryDTO" table="COUNTRIES">
-    <id name="id" column="ID">
-      <generator class="identify"/>
-    </id>
-    <property name="name" type="string" column="NAME" />
-  </class>
 </hibernate-mapping>
