@@ -23,7 +23,7 @@ public class Country extends AbstractPOJO {
    public String toString() {
       return new StringBuilder().append("Country {")
          .append("name='").append(name).append("'")
-         .append('}').toString();
+         .append("}").toString();
    }
 
    @Override

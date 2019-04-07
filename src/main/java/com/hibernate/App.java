@@ -1,17 +1,7 @@
 package com.hibernate;
 
-import com.hibernate.country.Country;
-import com.hibernate.country.CountryConverter;
-import com.hibernate.country.CountryDAO;
-import com.hibernate.country.CountryDTO;
-import com.hibernate.person.Person;
-import com.hibernate.person.PersonConverter;
-import com.hibernate.person.PersonDAO;
-import com.hibernate.person.PersonDTO;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-
-import java.sql.Date;
 
 /**
  * Hello world!
@@ -22,15 +12,18 @@ public class App {
 
    public static void main(String[] args) {
       BasicConfigurator.configure();
+      // TODO : Make tests v1.0.5
+   }
 
-      CountryDAO daoCountry = new CountryDAO();
+   @Deprecated
+   public void testBefore_V104() {
+      /*CountryDAO daoCountry = new CountryDAO();
       PersonDAO daoPerson = new PersonDAO();
 
       PersonConverter personConverter = new PersonConverter();
       CountryConverter countryConverter = new CountryConverter();
 
       Country country = new Country();
-      ;
       CountryDTO countryDTO;
       Person person = new Person();
       PersonDTO personDTO;
@@ -81,6 +74,6 @@ public class App {
       daoPerson.deleteByIdTransactional(personDTO.getID());
       logger.info("Messi was deleted.");
       daoCountry.deleteByIdTransactional(countryDTO.getID());
-      logger.info("Brazil was deleted.");
+      logger.info("Brazil was deleted.");*/
    }
 }

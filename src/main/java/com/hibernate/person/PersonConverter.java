@@ -1,36 +1,36 @@
 package com.hibernate.person;
 
-import com.hibernate.country.Country;
-import com.hibernate.country.CountryConverter;
-import com.hibernate.country.CountryDTO;
+import com.hibernate.city.City;
+import com.hibernate.city.CityConverter;
+import com.hibernate.city.CityDTO;
 import com.hibernate.interfaces.IConverter;
 
 public class PersonConverter implements IConverter<Person, PersonDTO> {
-   private CountryConverter countryConverter = new CountryConverter();
+   private CityConverter cityConverter = new CityConverter();
 
    @Override
    public PersonDTO toDTO(Person person) {
-      CountryDTO countryDTO = countryConverter.toDTO(person.getCountry());
+      CityDTO cityDTO = cityConverter.toDTO(person.getCity());
       PersonDTO personDTO = new PersonDTO();
       personDTO.setName(person.getName())
          .setAge(person.getAge())
          .setBirthday(person.getBirthday())
          .setEmail(person.getEmail())
          .setPhone(person.getPhone())
-         .setCountry(countryDTO);
+         .setCity(cityDTO);
       return personDTO;
    }
 
    @Override
    public Person toPOJO(PersonDTO personDTO) {
-      Country country = countryConverter.toPOJO(personDTO.getCountry());
+      City city = cityConverter.toPOJO(personDTO.getCity());
       Person person = new Person();
       person.setName(personDTO.getName())
          .setAge(personDTO.getAge())
          .setBirthday(personDTO.getBirthday())
          .setEmail(personDTO.getEmail())
          .setPhone(personDTO.getPhone())
-         .setCountry(country);
+         .setCity(city);
       return person;
    }
 }

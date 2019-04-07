@@ -1,10 +1,9 @@
 package com.hibernate.person;
 
 import com.hibernate.abstractions.AbstractPOJO;
-import com.hibernate.country.Country;
+import com.hibernate.city.City;
 
 import java.sql.Date;
-import java.util.Calendar;
 import java.util.Objects;
 
 public class Person extends AbstractPOJO {
@@ -14,16 +13,10 @@ public class Person extends AbstractPOJO {
    private Date birthday;
    private String email;
    private String phone;
-   private Country country;
+   private City city;
 
    public Person() {
-      this.setID(0L)
-         .setName("")
-         .setAge(0)
-         .setBirthday(new Date(Calendar.getInstance().getTime().getTime()))
-         .setEmail("")
-         .setPhone("")
-         .setCountry(new Country());
+
    }
 
    public long getID() {
@@ -80,25 +73,25 @@ public class Person extends AbstractPOJO {
       return this;
    }
 
-   public Country getCountry() {
-      return country;
+   public City getCity() {
+      return city;
    }
 
-   public Person setCountry(Country country) {
-      this.country = country;
+   public Person setCity(City city) {
+      this.city = city;
       return this;
    }
 
    @Override
    public String toString() {
       return new StringBuilder().append("PersonDTO {")
-         .append("name='").append(name).append('\'')
+         .append("name='").append(name).append("'")
          .append(", age=").append(age)
          .append(", birthday=").append(birthday)
-         .append(", email='").append(email).append('\'')
-         .append(", phone='").append(phone).append('\'')
-         .append(", country=").append(country)
-         .append('}').toString();
+         .append(", email='").append(email).append("'")
+         .append(", phone='").append(phone).append("'")
+         .append(", city=").append(city)
+         .append("}").toString();
    }
 
    @Override
@@ -112,12 +105,12 @@ public class Person extends AbstractPOJO {
          Objects.equals(getBirthday(), person.getBirthday()) &&
          Objects.equals(getEmail(), person.getEmail()) &&
          Objects.equals(getPhone(), person.getPhone()) &&
-         Objects.equals(getCountry(), person.getCountry());
+         Objects.equals(getCity(), person.getCity());
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(getID(), getName(), getAge(), getBirthday(), getEmail(), getPhone(), getCountry());
+      return Objects.hash(getID(), getName(), getAge(), getBirthday(), getEmail(), getPhone(), getCity());
    }
 
    @Override
@@ -129,7 +122,7 @@ public class Person extends AbstractPOJO {
          .setBirthday(getBirthday())
          .setEmail(getEmail())
          .setPhone(getPhone())
-         .setCountry(getCountry());
+         .setCity(getCity());
       return that;
    }
 }

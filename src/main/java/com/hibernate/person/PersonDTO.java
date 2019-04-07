@@ -1,6 +1,6 @@
 package com.hibernate.person;
 
-import com.hibernate.country.CountryDTO;
+import com.hibernate.city.CityDTO;
 
 import java.io.Serializable;
 import java.sql.Date;
@@ -12,7 +12,7 @@ public class PersonDTO implements Serializable {
    private Date birthday;
    private String email;
    private String phone;
-   private CountryDTO country;
+   private CityDTO city;
 
    public PersonDTO() {
 
@@ -72,12 +72,12 @@ public class PersonDTO implements Serializable {
       return this;
    }
 
-   public CountryDTO getCountry() {
-      return country;
+   public CityDTO getCity() {
+      return city;
    }
 
-   public PersonDTO setCountry(CountryDTO country) {
-      this.country = country;
+   public PersonDTO setCity(CityDTO city) {
+      this.city = city;
       return this;
    }
 }
