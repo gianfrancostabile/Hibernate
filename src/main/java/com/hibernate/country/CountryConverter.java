@@ -1,7 +1,6 @@
-package com.hibernate.converter;
+package com.hibernate.country;
 
-import com.hibernate.dto.CountryDTO;
-import com.hibernate.pojo.Country;
+import com.hibernate.interfaces.IConverter;
 
 public class CountryConverter implements IConverter<Country, CountryDTO> {
    @Override

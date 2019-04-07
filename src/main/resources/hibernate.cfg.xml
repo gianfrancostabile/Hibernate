@@ -27,7 +27,7 @@
     <property name="hbm2ddl.auto">create</property>
 
     <!-- Archivos de mapeo -->
-    <mapping resource="mappers/country.hbm.xml" />
-    <mapping resource="mappers/person.hbm.xml" />
+    <mapping resource="mappers/country.hbm.xml"/>
+    <mapping resource="mappers/person.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

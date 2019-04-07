@@ -1,4 +1,4 @@
-package com.hibernate.dao;
+package com.hibernate.interfaces;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.hibernate.dao;
+package com.hibernate.abstractions;
 
 import com.hibernate.util.HibernateUtil;
 import org.hibernate.*;

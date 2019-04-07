@@ -1,4 +1,4 @@
-package com.hibernate.dto;
+package com.hibernate.country;
 
 import java.io.Serializable;
 

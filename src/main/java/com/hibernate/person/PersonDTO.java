@@ -1,4 +1,6 @@
-package com.hibernate.dto;
+package com.hibernate.person;
+
+import com.hibernate.country.CountryDTO;
 
 import java.io.Serializable;
 import java.sql.Date;

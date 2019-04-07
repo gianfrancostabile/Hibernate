@@ -1,4 +1,7 @@
-package com.hibernate.pojo;
+package com.hibernate.person;
+
+import com.hibernate.abstractions.AbstractPOJO;
+import com.hibernate.country.Country;
 
 import java.sql.Date;
 import java.util.Calendar;

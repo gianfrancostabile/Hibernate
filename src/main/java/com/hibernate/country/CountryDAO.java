@@ -1,6 +1,7 @@
-package com.hibernate.dao;
+package com.hibernate.country;
 
-import com.hibernate.dto.PersonDTO;
+import com.hibernate.abstractions.AbstractDAO;
+import com.hibernate.interfaces.ICRUD;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 
@@ -9,11 +10,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
-   private static final Logger log = Logger.getLogger(PersonDAO.class);
+public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, Long> {
+   private static final Logger log = Logger.getLogger(CountryDAO.class);
 
    @Override
-   public Long insertNonTransactional(PersonDTO value) {
+   public Long insertNonTransactional(CountryDTO value) {
       Long id;
       try {
          beginSession();
@@ -28,7 +29,7 @@ public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
    }
 
    @Override
-   public Long insertTransactional(PersonDTO value) {
+   public Long insertTransactional(CountryDTO value) {
       Long id;
       try {
          beginSession();
@@ -46,7 +47,7 @@ public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
    }
 
    @Override
-   public boolean updateNonTransactional(PersonDTO value) {
+   public boolean updateNonTransactional(CountryDTO value) {
       boolean updated;
       try {
          beginSession();
@@ -62,7 +63,7 @@ public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
    }
 
    @Override
-   public boolean updateTransactional(PersonDTO value) {
+   public boolean updateTransactional(CountryDTO value) {
       boolean updated;
       try {
          beginSession();
@@ -81,7 +82,7 @@ public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
    }
 
    @Override
-   public boolean deleteNonTransactional(PersonDTO value) {
+   public boolean deleteNonTransactional(CountryDTO value) {
       boolean deleted;
       try {
          beginSession();
@@ -97,7 +98,7 @@ public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
    }
 
    @Override
-   public boolean deleteTransactional(PersonDTO value) {
+   public boolean deleteTransactional(CountryDTO value) {
       boolean deleted;
       try {
          beginSession();
@@ -119,9 +120,9 @@ public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
    public boolean deleteByIdNonTransactional(Long value) {
       boolean deleted;
       try {
+         CountryDTO countryDTO = retrieve(value);
          beginSession();
-         PersonDTO personDTO = retrieve(value);
-         session.delete(personDTO);
+         session.delete(countryDTO);
          deleted = true;
       } catch (HibernateException he) {
          deleted = false;
@@ -136,10 +137,10 @@ public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
    public boolean deleteByIdTransactional(Long value) {
       boolean deleted;
       try {
-         PersonDTO personDTO = retrieve(value);
+         CountryDTO countryDTO = retrieve(value);
          beginSession();
          beginTransaction();
-         session.delete(personDTO);
+         session.delete(countryDTO);
          commitTransaction();
          deleted = true;
       } catch (HibernateException he) {
@@ -153,13 +154,13 @@ public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
    }
 
    @Override
-   public List<PersonDTO> retrieve() {
-      List<PersonDTO> data;
+   public List<CountryDTO> retrieve() {
+      List<CountryDTO> data;
       try {
          beginSession();
          CriteriaBuilder builder = session.getCriteriaBuilder();
-         CriteriaQuery<PersonDTO> criteria = builder.createQuery(PersonDTO.class);
-         criteria.from(PersonDTO.class);
+         CriteriaQuery<CountryDTO> criteria = builder.createQuery(CountryDTO.class);
+         criteria.from(CountryDTO.class);
          data = session.createQuery(criteria).list();
       } catch (HibernateException he) {
          data = new ArrayList<>();
@@ -171,11 +172,11 @@ public class PersonDAO extends AbstractDAO implements ICRUD<PersonDTO, Long> {
    }
 
    @Override
-   public PersonDTO retrieve(Long id) {
-      PersonDTO data;
+   public CountryDTO retrieve(Long id) {
+      CountryDTO data;
       try {
          beginSession();
-         data = session.get(PersonDTO.class, id);
+         data = session.get(CountryDTO.class, id);
       } catch (HibernateException he) {
          data = null;
          log.error(he.getMessage(), he);

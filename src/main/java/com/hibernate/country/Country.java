@@ -1,4 +1,6 @@
-package com.hibernate.pojo;
+package com.hibernate.country;
+
+import com.hibernate.abstractions.AbstractPOJO;
 
 import java.util.Objects;
 

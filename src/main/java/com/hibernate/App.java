@@ -1,13 +1,13 @@
 package com.hibernate;
 
-import com.hibernate.converter.CountryConverter;
-import com.hibernate.converter.PersonConverter;
-import com.hibernate.dao.CountryDAO;
-import com.hibernate.dao.PersonDAO;
-import com.hibernate.dto.CountryDTO;
-import com.hibernate.dto.PersonDTO;
-import com.hibernate.pojo.Country;
-import com.hibernate.pojo.Person;
+import com.hibernate.country.Country;
+import com.hibernate.country.CountryConverter;
+import com.hibernate.country.CountryDAO;
+import com.hibernate.country.CountryDTO;
+import com.hibernate.person.Person;
+import com.hibernate.person.PersonConverter;
+import com.hibernate.person.PersonDAO;
+import com.hibernate.person.PersonDTO;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
@@ -29,7 +29,8 @@ public class App {
       PersonConverter personConverter = new PersonConverter();
       CountryConverter countryConverter = new CountryConverter();
 
-      Country country = new Country();;
+      Country country = new Country();
+      ;
       CountryDTO countryDTO;
       Person person = new Person();
       PersonDTO personDTO;

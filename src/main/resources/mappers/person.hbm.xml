@@ -11,7 +11,7 @@
     NAME : Class path
     TABLE : Name that this class will have in the database
   -->
-  <class name="com.hibernate.dto.PersonDTO" table="PERSONS">
+  <class name="com.hibernate.person.PersonDTO" table="PERSONS">
     <!-- After that, you have to put all the columns will have the table -->
     <!--
       ID : Tag that identify ID column
@@ -33,12 +33,13 @@
       COLUMN : Column name
         (OPTIONAL: If you haven't been specified, the name will be the attribute name)
     -->
-    <property name="name" type="string" column="NAME" not-null="true" />
-    <property name="age" type="integer" column="AGE" not-null="true" />
-    <property name="birthday" type="date" column="BIRTHDAY" not-null="true" />
-    <property name="email" type="string" column="EMAIL" />
-    <property name="phone" type="string" column="PHONE" />
-    <many-to-one name="country" column="COUNTRY_ID" class="com.hibernate.dto.CountryDTO" not-null="true" lazy="false" />
+    <property name="name" type="string" column="NAME" not-null="true"/>
+    <property name="age" type="integer" column="AGE" not-null="true"/>
+    <property name="birthday" type="date" column="BIRTHDAY" not-null="true"/>
+    <property name="email" type="string" column="EMAIL"/>
+    <property name="phone" type="string" column="PHONE"/>
+    <many-to-one name="country" column="COUNTRY_ID" class="com.hibernate.country.CountryDTO" not-null="true"
+                 lazy="false"/>
   </class>
   <!-- END PERSON TABLE -->
 </hibernate-mapping>

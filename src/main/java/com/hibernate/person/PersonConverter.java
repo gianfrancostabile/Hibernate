@@ -1,9 +1,9 @@
-package com.hibernate.converter;
+package com.hibernate.person;
 
-import com.hibernate.dto.CountryDTO;
-import com.hibernate.dto.PersonDTO;
-import com.hibernate.pojo.Country;
-import com.hibernate.pojo.Person;
+import com.hibernate.country.Country;
+import com.hibernate.country.CountryConverter;
+import com.hibernate.country.CountryDTO;
+import com.hibernate.interfaces.IConverter;
 
 public class PersonConverter implements IConverter<Person, PersonDTO> {
    private CountryConverter countryConverter = new CountryConverter();
