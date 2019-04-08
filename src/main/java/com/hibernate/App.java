@@ -1,7 +1,25 @@
 package com.hibernate;
 
+import com.hibernate.city.CityConverter;
+import com.hibernate.city.CityDAO;
+import com.hibernate.country.CountryConverter;
+import com.hibernate.country.CountryDAO;
+import com.hibernate.person.PersonConverter;
+import com.hibernate.person.PersonDAO;
+import com.hibernate.state.StateConverter;
+import com.hibernate.state.StateDAO;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * Hello world!
@@ -13,6 +31,37 @@ public class App {
    public static void main(String[] args) {
       BasicConfigurator.configure();
       // TODO : Make tests v1.0.5
+      CountryDAO countryDAO = new CountryDAO();
+      StateDAO stateDAO = new StateDAO();
+      CityDAO cityDAO = new CityDAO();
+      PersonDAO personDAO = new PersonDAO();
+
+      CountryConverter countryConverter = new CountryConverter();
+      StateConverter stateConverter = new StateConverter();
+      CityConverter cityConverter = new CityConverter();
+      PersonConverter personConverter = new PersonConverter();
+
+      JSONParser jsonParser = new JSONParser();
+      try {
+         String rootPath = new File("").getAbsolutePath(),
+            jsonPath = rootPath.concat("\\src\\main\\resources\\json\\"),
+            countriesPath = jsonPath.concat("countries.json"),
+            statesPath = jsonPath.concat("states.json");
+         logger.info(countriesPath);
+         // TODO fix jsonParser.parse error [Unexpected character (﻿) at position 0.]
+         JSONArray jsonCountries = (JSONArray) jsonParser.parse(new FileReader(countriesPath));
+         Iterator iterator = jsonCountries.iterator();
+         while(iterator.hasNext()) {
+            Map.Entry entry = (Map.Entry) iterator.next();
+            logger.info(entry.getKey() + " : " + entry.getValue());
+         }
+      } catch (ParseException pe) {
+         logger.error(pe.getMessage(), pe);
+      } catch (FileNotFoundException fnfe) {
+         logger.error(fnfe.getMessage(), fnfe);
+      } catch (IOException ioe) {
+         logger.error(ioe.getMessage(), ioe);
+      }
    }
 
    @Deprecated
