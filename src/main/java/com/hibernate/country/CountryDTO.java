@@ -3,19 +3,19 @@ package com.hibernate.country;
 import java.io.Serializable;
 
 public class CountryDTO implements Serializable {
-   private long ID;
+   private String CODE;
    private String name;
 
    public CountryDTO() {
 
    }
 
-   public long getID() {
-      return ID;
+   public String getCODE() {
+      return CODE;
    }
 
-   public CountryDTO setID(long id) {
-      this.ID = id;
+   public CountryDTO setCODE(String code) {
+      this.CODE = code;
       return this;
    }
 

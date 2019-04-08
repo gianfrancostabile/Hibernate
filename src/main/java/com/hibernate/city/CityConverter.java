@@ -12,7 +12,8 @@ public class CityConverter implements IConverter<City, CityDTO> {
    public CityDTO toDTO(City city) {
       StateDTO stateDTO = stateConverter.toDTO(city.getState());
       CityDTO cityDTO = new CityDTO();
-      cityDTO.setName(city.getName())
+      cityDTO.setCODE(city.getCode())
+         .setName(city.getName())
          .setState(stateDTO);
       return cityDTO;
    }
@@ -21,7 +22,8 @@ public class CityConverter implements IConverter<City, CityDTO> {
    public City toPOJO(CityDTO cityDTO) {
       State state = stateConverter.toPOJO(cityDTO.getState());
       City city = new City();
-      city.setName(cityDTO.getName())
+      city.setCode(cityDTO.getCODE())
+         .setName(cityDTO.getName())
          .setState(state);
       return city;
    }

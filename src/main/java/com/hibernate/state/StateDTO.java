@@ -5,7 +5,7 @@ import com.hibernate.country.CountryDTO;
 import java.io.Serializable;
 
 public class StateDTO implements Serializable {
-   private long ID;
+   private String CODE;
    private String name;
    private CountryDTO country;
 
@@ -13,12 +13,12 @@ public class StateDTO implements Serializable {
 
    }
 
-   public long getID() {
-      return ID;
+   public String getCODE() {
+      return CODE;
    }
 
-   public StateDTO setID(long ID) {
-      this.ID = ID;
+   public StateDTO setCODE(String code) {
+      this.CODE = code;
       return this;
    }
 

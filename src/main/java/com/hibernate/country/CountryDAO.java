@@ -10,40 +10,40 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, Long> {
+public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, String> {
    private static final Logger log = Logger.getLogger(CountryDAO.class);
 
    @Override
-   public Long insertNonTransactional(CountryDTO value) {
-      Long id;
+   public String insertNonTransactional(CountryDTO value) {
+      String code;
       try {
          beginSession();
-         id = (long) session.save(value);
+         code = (String) session.save(value);
       } catch (HibernateException he) {
-         id = 0L;
+         code = "";
          log.error(he.getMessage(), he);
       } finally {
          killSession();
       }
-      return id;
+      return code;
    }
 
    @Override
-   public Long insertTransactional(CountryDTO value) {
-      Long id;
+   public String insertTransactional(CountryDTO value) {
+      String code;
       try {
          beginSession();
          beginTransaction();
-         id = (Long) session.save(value);
+         code = (String) session.save(value);
          commitTransaction();
       } catch (HibernateException he) {
-         id = 0L;
+         code = "";
          log.error(he.getMessage(), he);
          rollbackTransaction();
       } finally {
          killSession();
       }
-      return id;
+      return code;
    }
 
    @Override
@@ -117,7 +117,7 @@ public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, Long> {
    }
 
    @Override
-   public boolean deleteByIdNonTransactional(Long value) {
+   public boolean deleteByIdNonTransactional(String value) {
       boolean deleted;
       try {
          CountryDTO countryDTO = retrieve(value);
@@ -134,7 +134,7 @@ public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, Long> {
    }
 
    @Override
-   public boolean deleteByIdTransactional(Long value) {
+   public boolean deleteByIdTransactional(String value) {
       boolean deleted;
       try {
          CountryDTO countryDTO = retrieve(value);
@@ -172,7 +172,7 @@ public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, Long> {
    }
 
    @Override
-   public CountryDTO retrieve(Long id) {
+   public CountryDTO retrieve(String id) {
       CountryDTO data;
       try {
          beginSession();

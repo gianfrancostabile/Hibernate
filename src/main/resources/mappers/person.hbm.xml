@@ -38,7 +38,7 @@
     <property name="birthday" type="date" column="BIRTHDAY" not-null="true"/>
     <property name="email" type="string" column="EMAIL"/>
     <property name="phone" type="string" column="PHONE"/>
-    <many-to-one name="city" column="CITY_ID" class="com.hibernate.city.CityDTO" not-null="true" lazy="false"/>
+    <many-to-one name="city" column="CITY_CODE" class="com.hibernate.city.CityDTO" not-null="true" lazy="false"/>
   </class>
   <!-- END PERSON TABLE -->
 </hibernate-mapping>

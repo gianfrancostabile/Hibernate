@@ -4,10 +4,10 @@
   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
   <class name="com.hibernate.city.CityDTO" table="CITIES">
-    <id name="ID" column="ID">
-      <generator class="increment"/>
+    <id name="CODE" type="string" column="CODE">
+      <generator class="assigned"/>
     </id>
     <property name="name" type="string" column="NAME" unique="true" not-null="true"/>
-    <many-to-one name="state" column="STATE_ID" class="com.hibernate.state.StateDTO" not-null="true" lazy="false"/>
+    <many-to-one name="state" column="STATE_CODE" class="com.hibernate.state.StateDTO" not-null="true" lazy="false"/>
   </class>
 </hibernate-mapping>

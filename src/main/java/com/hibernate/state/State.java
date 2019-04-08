@@ -6,11 +6,21 @@ import com.hibernate.country.Country;
 import java.util.Objects;
 
 public class State extends AbstractPOJO {
+   private String code;
    private String name;
    private Country country;
 
    public State() {
 
+   }
+
+   public String getCode() {
+      return code;
+   }
+
+   public State setCode(String code) {
+      this.code = code;
+      return this;
    }
 
    public String getName() {
@@ -34,8 +44,9 @@ public class State extends AbstractPOJO {
    @Override
    public String toString() {
       return new StringBuilder().append("State {")
-         .append("name='").append(name).append("'")
-         .append(", country=").append(country)
+         .append("code='").append(getCode()).append("'")
+         .append(", name='").append(getName()).append("'")
+         .append(", country=").append(getCountry())
          .append("}").toString();
    }
 
@@ -44,19 +55,21 @@ public class State extends AbstractPOJO {
       if (this == o) return true;
       if (!(o instanceof State)) return false;
       State state = (State) o;
-      return Objects.equals(getName(), state.getName()) &&
+      return Objects.equals(getCode(), state.getCode()) &&
+         Objects.equals(getName(), state.getName()) &&
          Objects.equals(getCountry(), state.getCountry());
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(getName(), getCountry());
+      return Objects.hash(getCode(), getName(), getCountry());
    }
 
    @Override
    public AbstractPOJO clone() {
       State that = new State();
-      return that.setName(getName())
+      return that.setCode(getCode())
+         .setName(getName())
          .setCountry(getCountry());
    }
 }

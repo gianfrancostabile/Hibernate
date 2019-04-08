@@ -1,25 +1,24 @@
 package com.hibernate;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.hibernate.city.CityConverter;
 import com.hibernate.city.CityDAO;
 import com.hibernate.country.CountryConverter;
 import com.hibernate.country.CountryDAO;
+import com.hibernate.country.CountryDTO;
 import com.hibernate.person.PersonConverter;
 import com.hibernate.person.PersonDAO;
 import com.hibernate.state.StateConverter;
 import com.hibernate.state.StateDAO;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Hello world!
@@ -41,26 +40,37 @@ public class App {
       CityConverter cityConverter = new CityConverter();
       PersonConverter personConverter = new PersonConverter();
 
-      JSONParser jsonParser = new JSONParser();
-      try {
-         String rootPath = new File("").getAbsolutePath(),
-            jsonPath = rootPath.concat("\\src\\main\\resources\\json\\"),
-            countriesPath = jsonPath.concat("countries.json"),
-            statesPath = jsonPath.concat("states.json");
-         logger.info(countriesPath);
-         // TODO fix jsonParser.parse error [Unexpected character (﻿) at position 0.]
-         JSONArray jsonCountries = (JSONArray) jsonParser.parse(new FileReader(countriesPath));
-         Iterator iterator = jsonCountries.iterator();
-         while(iterator.hasNext()) {
-            Map.Entry entry = (Map.Entry) iterator.next();
-            logger.info(entry.getKey() + " : " + entry.getValue());
+      String rootPath = new File("").getAbsolutePath(),
+         jsonPath = rootPath.concat("\\src\\main\\resources\\json\\"),
+         countriesPath = jsonPath.concat("countries.json"),
+         statesPath = jsonPath.concat("states.json");
+      logger.info(countriesPath);
+
+      JsonParser jsonParser = new JsonParser();
+      try (JsonReader jsonReader = new JsonReader(new FileReader(countriesPath))) {
+         JsonElement jsonElement = jsonParser.parse(jsonReader);
+         if (jsonElement.isJsonArray()) {
+            JsonArray jsonCountries = jsonElement.getAsJsonArray();
+            Iterator<JsonElement> iteratorCountries = jsonCountries.iterator();
+
+            countryDAO.setManuallySession(true);
+            countryDAO.beginSession();
+            countryDAO.beginTransaction();
+            while (iteratorCountries.hasNext()) {
+               JsonObject countryJson = iteratorCountries.next().getAsJsonObject();
+               CountryDTO countryDTO = new CountryDTO();
+               countryDTO.setCODE(countryJson.get("code").getAsString())
+                  .setName(countryJson.get("name").getAsString());
+               countryDAO.insertNonTransactional(countryDTO);
+            }
+            countryDAO.setManuallySession(false);
+            countryDAO.commitTransaction();
+            countryDAO.killSession();
          }
-      } catch (ParseException pe) {
-         logger.error(pe.getMessage(), pe);
-      } catch (FileNotFoundException fnfe) {
-         logger.error(fnfe.getMessage(), fnfe);
-      } catch (IOException ioe) {
-         logger.error(ioe.getMessage(), ioe);
+      } catch (FileNotFoundException e) {
+         e.printStackTrace();
+      } catch (IOException e) {
+         e.printStackTrace();
       }
    }
 

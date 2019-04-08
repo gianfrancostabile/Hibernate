@@ -10,40 +10,40 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, Long> {
+public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, String> {
    private static final Logger log = Logger.getLogger(StateDAO.class);
 
    @Override
-   public Long insertNonTransactional(StateDTO value) {
-      Long id;
+   public String insertNonTransactional(StateDTO value) {
+      String code;
       try {
          beginSession();
-         id = (long) session.save(value);
+         code = (String) session.save(value);
       } catch (HibernateException he) {
-         id = 0L;
+         code = "";
          log.error(he.getMessage(), he);
       } finally {
          killSession();
       }
-      return id;
+      return code;
    }
 
    @Override
-   public Long insertTransactional(StateDTO value) {
-      Long id;
+   public String insertTransactional(StateDTO value) {
+      String code;
       try {
          beginSession();
          beginTransaction();
-         id = (Long) session.save(value);
+         code = (String) session.save(value);
          commitTransaction();
       } catch (HibernateException he) {
-         id = 0L;
+         code = "";
          log.error(he.getMessage(), he);
          rollbackTransaction();
       } finally {
          killSession();
       }
-      return id;
+      return code;
    }
 
    @Override
@@ -117,7 +117,7 @@ public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, Long> {
    }
 
    @Override
-   public boolean deleteByIdNonTransactional(Long value) {
+   public boolean deleteByIdNonTransactional(String value) {
       boolean deleted;
       try {
          StateDTO stateDTO = retrieve(value);
@@ -134,7 +134,7 @@ public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, Long> {
    }
 
    @Override
-   public boolean deleteByIdTransactional(Long value) {
+   public boolean deleteByIdTransactional(String value) {
       boolean deleted;
       try {
          StateDTO stateDTO = retrieve(value);
@@ -172,7 +172,7 @@ public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, Long> {
    }
 
    @Override
-   public StateDTO retrieve(Long id) {
+   public StateDTO retrieve(String id) {
       StateDTO data;
       try {
          beginSession();

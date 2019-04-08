@@ -5,8 +5,8 @@
 
 <hibernate-mapping>
   <class name="com.hibernate.country.CountryDTO" table="COUNTRIES">
-    <id name="ID" column="ID">
-      <generator class="increment"/>
+    <id name="CODE" type="string" column="CODE">
+      <generator class="assigned"/>
     </id>
     <property name="name" type="string" column="NAME" unique="true" not-null="true"/>
   </class>

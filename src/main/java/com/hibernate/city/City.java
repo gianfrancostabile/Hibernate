@@ -6,11 +6,21 @@ import com.hibernate.state.State;
 import java.util.Objects;
 
 public class City extends AbstractPOJO {
+   private String code;
    private String name;
    private State state;
 
    public City() {
 
+   }
+
+   public String getCode() {
+      return code;
+   }
+
+   public City setCode(String code) {
+      this.code = code;
+      return this;
    }
 
    public String getName() {
@@ -34,8 +44,9 @@ public class City extends AbstractPOJO {
    @Override
    public String toString() {
       return new StringBuilder().append("City {")
-         .append("name='").append(name).append("'")
-         .append(", state=").append(state)
+         .append("code='").append(getCode()).append("'")
+         .append(", name='").append(getName()).append("'")
+         .append(", state=").append(getState())
          .append("}").toString();
    }
 
@@ -44,19 +55,21 @@ public class City extends AbstractPOJO {
       if (this == o) return true;
       if (!(o instanceof City)) return false;
       City city = (City) o;
-      return Objects.equals(getName(), city.getName()) &&
+      return Objects.equals(getCode(), city.getCode()) &&
+         Objects.equals(getName(), city.getName()) &&
          Objects.equals(getState(), city.getState());
    }
 
    @Override
    public int hashCode() {
-      return Objects.hash(getName(), getState());
+      return Objects.hash(getCode(), getName(), getState());
    }
 
    @Override
    public AbstractPOJO clone() {
       City that = new City();
-      return that.setName(getName())
+      return that.setCode(getCode())
+         .setName(getName())
          .setState(getState());
    }
 }

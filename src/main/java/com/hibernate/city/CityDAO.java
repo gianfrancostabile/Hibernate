@@ -10,40 +10,40 @@ import javax.persistence.criteria.CriteriaQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CityDAO extends AbstractDAO implements ICRUD<CityDTO, Long> {
+public class CityDAO extends AbstractDAO implements ICRUD<CityDTO, String> {
    private static final Logger log = Logger.getLogger(CityDTO.class);
 
    @Override
-   public Long insertNonTransactional(CityDTO value) {
-      Long id;
+   public String insertNonTransactional(CityDTO value) {
+      String code;
       try {
          beginSession();
-         id = (long) session.save(value);
+         code = (String) session.save(value);
       } catch (HibernateException he) {
-         id = 0L;
+         code = "";
          log.error(he.getMessage(), he);
       } finally {
          killSession();
       }
-      return id;
+      return code;
    }
 
    @Override
-   public Long insertTransactional(CityDTO value) {
-      Long id;
+   public String insertTransactional(CityDTO value) {
+      String code;
       try {
          beginSession();
          beginTransaction();
-         id = (Long) session.save(value);
+         code = (String) session.save(value);
          commitTransaction();
       } catch (HibernateException he) {
-         id = 0L;
+         code = "";
          log.error(he.getMessage(), he);
          rollbackTransaction();
       } finally {
          killSession();
       }
-      return id;
+      return code;
    }
 
    @Override
@@ -117,7 +117,7 @@ public class CityDAO extends AbstractDAO implements ICRUD<CityDTO, Long> {
    }
 
    @Override
-   public boolean deleteByIdNonTransactional(Long value) {
+   public boolean deleteByIdNonTransactional(String value) {
       boolean deleted;
       try {
          CityDTO stateDTO = retrieve(value);
@@ -134,7 +134,7 @@ public class CityDAO extends AbstractDAO implements ICRUD<CityDTO, Long> {
    }
 
    @Override
-   public boolean deleteByIdTransactional(Long value) {
+   public boolean deleteByIdTransactional(String value) {
       boolean deleted;
       try {
          CityDTO stateDTO = retrieve(value);
@@ -172,7 +172,7 @@ public class CityDAO extends AbstractDAO implements ICRUD<CityDTO, Long> {
    }
 
    @Override
-   public CityDTO retrieve(Long id) {
+   public CityDTO retrieve(String id) {
       CityDTO data;
       try {
          beginSession();

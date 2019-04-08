@@ -12,7 +12,8 @@ public class StateConverter implements IConverter<State, StateDTO> {
    public StateDTO toDTO(State state) {
       CountryDTO countryDTO = countryConverter.toDTO(state.getCountry());
       StateDTO stateDTO = new StateDTO();
-      stateDTO.setName(state.getName())
+      stateDTO.setCODE(state.getCode())
+         .setName(state.getName())
          .setCountry(countryDTO);
       return stateDTO;
    }
@@ -21,7 +22,8 @@ public class StateConverter implements IConverter<State, StateDTO> {
    public State toPOJO(StateDTO stateDTO) {
       Country country = countryConverter.toPOJO(stateDTO.getCountry());
       State state = new State();
-      state.setName(stateDTO.getName())
+      state.setCode(stateDTO.getCODE())
+         .setName(stateDTO.getName())
          .setCountry(country);
       return state;
    }
