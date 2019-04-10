@@ -17,7 +17,7 @@
     <property name="connection.password">a</property>
 
     <!-- Configuracion del pool interno -->
-    <property name="connection.pool_size">1</property>
+    <property name="connection.pool_size">3</property>
 
     <!-- Dialecto de la base de datos -->
     <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>

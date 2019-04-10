@@ -8,6 +8,6 @@
     <id name="CODE" type="string" column="CODE">
       <generator class="assigned"/>
     </id>
-    <property name="name" type="string" column="NAME" unique="true" not-null="true"/>
+    <property name="name" type="string" column="NAME" not-null="true"/>
   </class>
 </hibernate-mapping>

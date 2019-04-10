@@ -22,8 +22,6 @@ public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, String>
       } catch (HibernateException he) {
          code = "";
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return code;
    }
@@ -56,8 +54,6 @@ public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, String>
       } catch (HibernateException he) {
          updated = false;
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return updated;
    }
@@ -91,8 +87,6 @@ public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, String>
       } catch (HibernateException he) {
          deleted = false;
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return deleted;
    }
@@ -127,8 +121,6 @@ public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, String>
       } catch (HibernateException he) {
          deleted = false;
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return deleted;
    }
@@ -165,8 +157,6 @@ public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, String>
       } catch (HibernateException he) {
          data = new ArrayList<>();
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return data;
    }
@@ -176,12 +166,10 @@ public class CountryDAO extends AbstractDAO implements ICRUD<CountryDTO, String>
       CountryDTO data;
       try {
          beginSession();
-         data = session.get(CountryDTO.class, id);
+         data = session.find(CountryDTO.class, id);
       } catch (HibernateException he) {
          data = null;
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return data;
    }

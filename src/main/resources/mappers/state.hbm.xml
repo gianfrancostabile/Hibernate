@@ -7,7 +7,7 @@
     <id name="CODE" type="string" column="CODE">
       <generator class="assigned"/>
     </id>
-    <property name="name" type="string" column="NAME" unique="true" not-null="true"/>
+    <property name="name" type="string" column="NAME" not-null="true"/>
     <many-to-one name="country" column="COUNTRY_CODE" class="com.hibernate.country.CountryDTO" not-null="true"
                  lazy="false"/>
   </class>

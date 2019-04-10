@@ -22,8 +22,6 @@ public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, String> {
       } catch (HibernateException he) {
          code = "";
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return code;
    }
@@ -56,8 +54,6 @@ public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, String> {
       } catch (HibernateException he) {
          updated = false;
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return updated;
    }
@@ -91,8 +87,6 @@ public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, String> {
       } catch (HibernateException he) {
          deleted = false;
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return deleted;
    }
@@ -127,8 +121,6 @@ public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, String> {
       } catch (HibernateException he) {
          deleted = false;
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return deleted;
    }
@@ -165,8 +157,6 @@ public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, String> {
       } catch (HibernateException he) {
          data = new ArrayList<>();
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return data;
    }
@@ -180,8 +170,6 @@ public class StateDAO extends AbstractDAO implements ICRUD<StateDTO, String> {
       } catch (HibernateException he) {
          data = null;
          log.error(he.getMessage(), he);
-      } finally {
-         killSession();
       }
       return data;
    }

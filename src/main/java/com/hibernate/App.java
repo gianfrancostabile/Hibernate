@@ -1,24 +1,21 @@
 package com.hibernate;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
-import com.hibernate.city.CityConverter;
 import com.hibernate.city.CityDAO;
-import com.hibernate.country.CountryConverter;
+import com.hibernate.city.CityMapper;
 import com.hibernate.country.CountryDAO;
 import com.hibernate.country.CountryDTO;
-import com.hibernate.person.PersonConverter;
+import com.hibernate.country.CountryMapper;
 import com.hibernate.person.PersonDAO;
-import com.hibernate.state.StateConverter;
+import com.hibernate.person.PersonMapper;
 import com.hibernate.state.StateDAO;
+import com.hibernate.state.StateDTO;
+import com.hibernate.state.StateMapper;
+import com.hibernate.util.JsonUtil;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
-import java.io.*;
-import java.util.Iterator;
+import java.io.File;
+import java.util.List;
 
 /**
  * Hello world!
@@ -35,10 +32,10 @@ public class App {
       CityDAO cityDAO = new CityDAO();
       PersonDAO personDAO = new PersonDAO();
 
-      CountryConverter countryConverter = new CountryConverter();
-      StateConverter stateConverter = new StateConverter();
-      CityConverter cityConverter = new CityConverter();
-      PersonConverter personConverter = new PersonConverter();
+      CountryMapper countryMapper = new CountryMapper();
+      StateMapper stateMapper = new StateMapper();
+      CityMapper cityMapper = new CityMapper();
+      PersonMapper personConverter = new PersonMapper();
 
       String rootPath = new File("").getAbsolutePath(),
          jsonPath = rootPath.concat("\\src\\main\\resources\\json\\"),
@@ -46,32 +43,21 @@ public class App {
          statesPath = jsonPath.concat("states.json");
       logger.info(countriesPath);
 
-      JsonParser jsonParser = new JsonParser();
-      try (JsonReader jsonReader = new JsonReader(new FileReader(countriesPath))) {
-         JsonElement jsonElement = jsonParser.parse(jsonReader);
-         if (jsonElement.isJsonArray()) {
-            JsonArray jsonCountries = jsonElement.getAsJsonArray();
-            Iterator<JsonElement> iteratorCountries = jsonCountries.iterator();
+      countryDAO.beginSession();
+      countryDAO.beginTransaction();
+      String countriesContent = JsonUtil.getContentFile(countriesPath);
+      Object countries = JsonUtil.convert(CountryMapper.class, countriesContent);
+      ((List<CountryDTO>) countries).forEach(countryDTO -> countryDAO.insertNonTransactional(countryDTO));
+      countryDAO.commitTransaction();
+      countryDAO.killSession();
 
-            countryDAO.setManuallySession(true);
-            countryDAO.beginSession();
-            countryDAO.beginTransaction();
-            while (iteratorCountries.hasNext()) {
-               JsonObject countryJson = iteratorCountries.next().getAsJsonObject();
-               CountryDTO countryDTO = new CountryDTO();
-               countryDTO.setCODE(countryJson.get("code").getAsString())
-                  .setName(countryJson.get("name").getAsString());
-               countryDAO.insertNonTransactional(countryDTO);
-            }
-            countryDAO.setManuallySession(false);
-            countryDAO.commitTransaction();
-            countryDAO.killSession();
-         }
-      } catch (FileNotFoundException e) {
-         e.printStackTrace();
-      } catch (IOException e) {
-         e.printStackTrace();
-      }
+      stateDAO.beginSession();
+      stateDAO.beginTransaction();
+      String statesContent = JsonUtil.getContentFile(statesPath);
+      Object states = JsonUtil.convert(StateMapper.class, statesContent);
+      ((List<StateDTO>) states).forEach(stateDTO -> stateDAO.insertNonTransactional(stateDTO));
+      stateDAO.commitTransaction();
+      stateDAO.killSession();
    }
 
    @Deprecated
@@ -79,8 +65,8 @@ public class App {
       /*CountryDAO daoCountry = new CountryDAO();
       PersonDAO daoPerson = new PersonDAO();
 
-      PersonConverter personConverter = new PersonConverter();
-      CountryConverter countryConverter = new CountryConverter();
+      PersonMapper personConverter = new PersonMapper();
+      CountryMapper countryConverter = new CountryMapper();
 
       Country country = new Country();
       CountryDTO countryDTO;
